@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Step</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and Base Styles */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* High-End Background Animations */
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0; /* Capa más baja */
+            background: #050505;
+        }
+        
+        .blob {
+            position: absolute;
+            filter: blur(90px);
+            opacity: 0.5;
+            animation: move-blobs 12s infinite alternate ease-in-out;
+        }
+
+        .blob-1 { top: -10%; left: -10%; width: 350px; height: 350px; background: #ff007a; animation-delay: 0s; }
+        .blob-2 { bottom: -20%; right: -10%; width: 450px; height: 450px; background: #7928ca; animation-duration: 15s; }
+        .blob-3 { top: 40%; left: 60%; width: 250px; height: 250px; background: #00f2fe; animation-duration: 10s; }
+
+        @keyframes move-blobs {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(80px, 80px) scale(1.1); }
+        }
+
+        /* Glassmorphism UI Card - Z-Index alto para asegurar visibilidad */
+        .card {
+            position: relative;
+            z-index: 10; /* Por encima del fondo animado */
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 3.5rem 2.5rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .card h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            letter-spacing: 1.5px;
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 15px rgba(255,255,255,0.15);
+        }
+
+        /* Neon Animated Button - Garantizado al 100% que se muestre */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 36px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #ffffff !important;
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            animation: pulse-neon 2s infinite;
+            position: relative;
+            z-index: 20; /* Capa más alta de todas */
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes pulse-neon {
+            0% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
+            50% { box-shadow: 0 0 35px rgba(0, 242, 254, 0.8), 0 0 60px rgba(0, 242, 254, 0.4); }
+            100% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="card" id="bridge-ui">
+        <h1>FINAL STEP 🚀</h1>
+        <a href="https://rewartkk.lovable.app/testerup.html" id="open-btn" class="btn" target="_blank">Open Browser</a>
+    </div>
+
+    <script>
+        // ==========================================
+        // URL CONFIGURATION 
+        // ==========================================
+        const DOMAIN_ONLY = "rewartkk.lovable.app/testerup.html"; 
+
+        // ==========================================
+        // ENVIRONMENT DETECTION 
+        // ==========================================
+        const ua = navigator.userAgent.toLowerCase();
+        const isAndroid = /android/.test(ua);
+
+        // ==========================================
+        // BUTTON INTERACTION LOGIC (STRICT CLICK ONLY)
+        // ==========================================
+        document.addEventListener("DOMContentLoaded", () => {
+            const btn = document.getElementById("open-btn");
+
+            btn.addEventListener("click", function(event) {
+                if (isAndroid) {
+                    event.preventDefault(); // Detiene navegación estándar para no abrir dentro de TikTok
+                    const intentUrl = `intent://${DOMAIN_ONLY}#Intent;scheme=https;package=com.android.chrome;end;`;
+                    window.location.href = intentUrl;
+                }
+                // iOS continúa su curso natural gracias al href y target="_blank"
+            });
+        });
+    </script>
+</body>
+</html>
